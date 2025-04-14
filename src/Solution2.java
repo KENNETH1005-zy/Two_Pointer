@@ -1,30 +1,26 @@
-public class Solution2{
-    public static boolean validWordAbbreviation(String word, String abbr) {
-       int wordIndex = 0;
-       int abbrIndex = 0;
-       while (abbrIndex < abbr.length()) {
-           if (Character.isDigit(abbr.charAt(abbrIndex))) {
-               if (abbr.charAt(abbrIndex) == 0) {
-                   return false;
-               }
-               int num = 0;
-               while (abbrIndex < abbr.length() && Character.isDigit(abbr.charAt(abbrIndex))) {
-                   num = num * 10 + (abbr.charAt(abbrIndex) - '0');
-                   abbrIndex++;
-               }
-               // Skip the number of characters in word as found in abbreviation.
-               wordIndex += num;
-           }
-           else {
-               // Check if characters the match, then increment the pointers. Otherwise return False.
-               if (wordIndex >= word.length() || word.charAt(wordIndex)!= abbr.charAt(abbrIndex)) {
-                   return false;
-               }
-               wordIndex++;
-               abbrIndex++;
-           }
-       }
-        // Check if both indices have reached the end of their respective strings.
+class Solution2 {
+    public static boolean validWordAbbreviation (String word, String abbr) {
+        int wordIndex = 0;
+        int abbrIndex = 0;
+        while (abbrIndex < abbr.length()) {
+            if (Character.isDigit(abbr.charAt(abbrIndex))) {
+                if (abbr.charAt(abbrIndex) == 0) {
+                    return false;
+                }
+                int num = 0;
+                while (abbrIndex < abbr.length() && Character.isDigit(abbr.charAt(abbrIndex))) {
+                    num = num * 10 + (abbr.charAt(abbrIndex) - '0');
+                    abbrIndex++;
+                    wordIndex += num;
+                }
+            } else {
+                if (wordIndex >= word.length() || word.charAt(wordIndex) != abbr.charAt(abbrIndex)) {
+                    return false;
+                }
+            }
+            wordIndex++;
+            abbrIndex++;
+        }
         return wordIndex == word.length() && abbrIndex == abbr.length();
     }
     public static void main(String[] args) {
